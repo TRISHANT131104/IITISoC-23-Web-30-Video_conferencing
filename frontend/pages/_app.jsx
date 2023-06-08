@@ -11,7 +11,9 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <ContextProvider>
           <Navbar />
+          <div className='z-0'>
           <Component {...pageProps} />
+          </div>
         </ContextProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

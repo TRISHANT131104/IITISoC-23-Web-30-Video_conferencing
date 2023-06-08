@@ -9,11 +9,11 @@ export default function Navbar() {
 			<div className='rounded-md w-fit ml-2 font-bold text-2xl '>
 				<span className='text-4xl'>C</span>onferoLive
 			</div>
-			<div className='flex items-center !w-full'>
+			<div className='lg:flex hidden items-center !w-full'>
 				<div className='flex  items-center   h-full'>
 					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/">Home</Link>
-					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/">Login</Link>
-					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/">Signup</Link>
+					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/LoginPage">Login</Link>
+					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/SignupPage">Signup</Link>
 					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/">Meetings</Link>
 					<Link className='text-xl font-bold mx-5 hover:border-t-2 border-orange-600' href="/">Query</Link>
 				</div>

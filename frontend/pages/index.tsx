@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from '../components/Modal'
 import BlobText from '../components/BlobText'
+import HomePage2 from '../components/HomePage2'
 export default function index() {
   return (
     <div className='lg:grid lg:grid-cols-[auto_auto_auto] '>
@@ -12,7 +13,8 @@ export default function index() {
           <div className='lg:text-4xl text-2xl my-2 '>See, Speak, Share - Without Boundaries
 </div>
         </div>
-        <div className='blur-[10px] lg:blur-0 '><Modal /></div>
+        <div className=' '><Modal /></div>
+        
         <style jsx>
           {`
             #side-btn{
