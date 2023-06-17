@@ -35,10 +35,10 @@ const Modal = () => {
 
         p.push();
         p.scale(5);
-        p.rotateY(frameCount / 100);
-        // p.rotateX(frameCount / 100);
-        // p.rotateZ(frameCount / 100);
-        // p.rotateX(HALF_PI)
+        p.rotateY(frameCount / 80);
+        // p.rotateX(frameCount / 80);
+        // p.rotateZ(frameCount / 80);
+        // p.rotateX(p.HALF_PI)
 
         let r = 50;
         let hor = 50;

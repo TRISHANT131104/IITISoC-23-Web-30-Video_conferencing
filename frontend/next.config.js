@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  images : {
+    remotePatterns:[
+      {
+        hostname:"www.htmlhints.com"
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

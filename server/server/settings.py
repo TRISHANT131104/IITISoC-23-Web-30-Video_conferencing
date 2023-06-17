@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-mr^q9hv3l!1hz3c27r)($#fv$w9*qw+%5_@xt(_vwgto(27ss6
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+AUTH_USER_MODEL = 'api.User'
 ALLOWED_HOSTS = []
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
@@ -205,4 +205,12 @@ SIMPLE_JWT = {
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "pradeepkumarrebbavarapu705@gmail.com"
+EMAIL_HOST_PASSWORD = "becjwdmphhsixqrn"

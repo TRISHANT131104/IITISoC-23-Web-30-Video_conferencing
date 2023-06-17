@@ -9,6 +9,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import { useContext, useEffect } from "react";
 import context from "../../context/Context";
+import Image from 'next/image'
+import wave from '../../public/images/wave.png'
 export default function LoginPage() {
     useEffect(() => {
         const inputs = document.querySelectorAll(".input");
@@ -52,7 +54,7 @@ export default function LoginPage() {
 
     return (
         <div id="auth">
-            <img className="wave" src="https://www.htmlhints.com/demo/form/animatedLoginForm/img/wave.png" />
+            <Image placeholder="blur" className="wave" width={800} height={400} src={wave} />
             <div className="container">
                 <div className="img"></div>
                 <div className="login-content">
@@ -88,25 +90,26 @@ export default function LoginPage() {
                     </Formik>
                 </div>
             </div>
-            
+           
         </div>
     )
 }
 
 
 const LoginUser = (user) => {
-    return axios.post('your login api call url', user, {
+    return axios.post('http://127.0.0.1:8000/api/v1/Login/', user, {
         withCredentials: true,
     })
 }
 
 const useLoginUser = () => {
     const router = useRouter()
-    let { setauthtoken, setuser } = useContext(context)
+    let { setauth} = useContext(context)
     return useMutation(LoginUser, {
         onSuccess: (response) => {
-
-
+            console.log(response)
+            localStorage.setItem('auth-details',JSON.stringify(response.data))
+            setauth(response.data)
             router.push('/')
             toast.success('You Have Logged In Successfully!!!', { position: toast.POSITION.TOP_LEFT })
 

@@ -13,6 +13,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup';
 import Input from "../../components/Input";
+import wave from '../../public/images/wave.png'
+import Image from 'next/image'
 export default function SignupPage() {
     useEffect(() => {
         const inputs = document.querySelectorAll(".input");
@@ -74,7 +76,7 @@ export default function SignupPage() {
     }
     return (
         <div id="auth">
-            <img className="wave" src="https://www.htmlhints.com/demo/form/animatedLoginForm/img/wave.png" />
+             <Image placeholder="blur" className="wave" width={800} height={400} src={wave} />
             <div className="container">
                 <div className="img"></div>
                 <div className="login-content">

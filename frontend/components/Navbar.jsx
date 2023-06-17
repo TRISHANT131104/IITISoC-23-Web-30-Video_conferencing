@@ -5,7 +5,7 @@ import logo from '../public/images/logo.png'
 import {BsFillPersonFill} from 'react-icons/bs'
 export default function Navbar() {
 	return (
-		<div className='h-full w-full py-2 justify-between  items-center grid grid-cols-[auto_auto] z-[100000]'>
+		<div className='h-full w-full py-2 justify-between  items-center grid grid-cols-[auto_auto] z-[100000] bg-white '>
 			<div className='rounded-md w-fit ml-2 font-bold text-2xl '>
 				<span className='text-4xl'>C</span>onferoLive
 			</div>

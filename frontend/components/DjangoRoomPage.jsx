@@ -27,53 +27,23 @@ import { IoExit } from 'react-icons/io5'
 import { GrAttachment } from 'react-icons/gr'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { v4 as uuidv4 } from 'uuid';
+import $ from 'jquery'
 // import { w3cwebsocket as W3CWebSocket } from "websocket";
-import Context from "../../context/Context";
+import Context from "../context/Context";
 import { useRouter } from "next/router";
-export default function DjangoRoom() {
-	const [LeftNavOpen,setLeftNavOpen] = useState(false)
-	const [NoOfVideos,setNoOfVideos] = useState(0)
-	const router = useRouter()
-	const {auth,roomID} = useContext(Context)
-	
-	
-	const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + roomID + "/")
+import * as webRTCHandler from './webRTCHandler'
+export default function DjangoRoomPage() {
+	const {auth,isHost,identity,overlay,setoverlay,roomID} = useContext(Context)
+
 	useEffect(()=>{
-		ws.onopen = () =>{
-			alert('Django websockets connected in client side')
-			if(auth){
-				ws.send(JSON.stringify({
-					action:"userconnect",
-					userID:`${auth.username}/${uuidv4()}`,
-					roomID:roomID
-				}))
-			}
-		}
+		console.log(roomID)
+		webRTCHandler.getLocalPreviewAndInitRoomConnection(isHost,identity,roomID,setoverlay)
 
-		ws.onmessage = (message) =>{
-			const data = JSON.parse(message.data)
-			const type = data['type']
-			if(type==='Inform_Others_About_Me'){
-				console.log(data)
-				addUser(data.other_user_id,other.other_connection_id)
-			}
-		}
-
-		function addUser(PeerUserId,PeerConnectionId){
-			//for the below code we will make another createVideo function and return the end output which we would like
-			const video = document.createElement('video')
-			const VideoGrid = document.getElementById('VideoGrid')
-			video.id = PeerUserId.toString() + '-' + PeerConnectionId.toString();
-			video.className = "h-full w-full";
-			video.style.borderRadius = "10px";
-			VideoGrid.append(video)
-		}
 	},[])
 
-	
-		
-	
-	
+	if(overlay){
+		return <h1 className="py-20 text-center font-bold text-5xl">Loading...</h1>
+	}
 	return (
 		<div className="w-full h-full bg-white absolute top-0 ">
 			<div className="flex w-full h-full">
@@ -100,25 +70,23 @@ export default function DjangoRoom() {
 						<div className="h-[60px] w-full  flex">
 							<div
 								className="my-auto p-2 border-0 w-fit ml-5 bg-gray-300 bg-opacity-30 hover:bg-gray-400 hover:bg-opacity-20 transition-all fade-in-out cursor-pointer rounded-md"
-								
+
 							>
-								{LeftNavOpen ? (
+								{/* {LeftNavOpen ? (
 									<AiOutlineRight className="w-6 h-6 mx-auto my-auto text-gray-500 " />
 								) : (
 									<AiOutlineLeft className="w-6 h-6 mx-auto my-auto text-gray-500 " />
-								)}
+								)} */}
 							</div>
 							<div className=" text-center font-bold items-center flex text-xl ml-4">
 								Heading of The Meeting Or Title
 							</div>
 						</div>
-
-						<div id="VideoGrid" className={` w-full border-0 p-5 border-blue-500 z-[1000] h-full grid ${NoOfVideos <= 1 ? "grid-cols-1" : "grid-cols-2"} gap-4`}>
-
-
-
-
-
+						<div id="otherTemplate">
+							<h2></h2>
+							<div id="VideoGrid" className={` w-full border-0 p-5 border-blue-500 z-[1000] h-full grid gap-4`}>
+								
+							</div>
 						</div>
 
 
@@ -160,11 +128,6 @@ export default function DjangoRoom() {
 									<div id="ToggleVideoBtn" className="border-0 rounded-lg p-2 w-fit mx-auto group-hover:bg-orange-500 group-hover:bg-opacity-20 transition-all fade-in-out group-hover:text-orange-500" >{!VideoOn ? (<BsFillCameraVideoOffFill className="w-5 h-5" />) : (<BsCameraVideoFill className="w-5 h-5" />)}</div>
 									<div className="text-md transition-all fade-in-out text-gray-400 mt-2 group-hover:text-orange-500">{VideoOn ? "Cam On" : "Cam Off"}</div>
 								</div>
-
-
-
-
-
 
 								<div className="group transition-all fade-in-out mx-5">
 									<div className="border-0 rounded-lg p-2 w-fit mx-auto group-hover:bg-orange-500 group-hover:bg-opacity-20 transition-all fade-in-out group-hover:text-orange-500" >{ScreenShareOn ? (<LuScreenShareOff className="w-5 h-5" />) : (<LuScreenShare className="w-5 h-5" />)}</div>
