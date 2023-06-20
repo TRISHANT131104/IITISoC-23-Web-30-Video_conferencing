@@ -2,17 +2,11 @@ import React, { useContext, useState } from 'react'
 import Context from '../../context/Context'
 import Link from 'next/link'
 import { v4 as uuidv4 } from 'uuid';
-import { connectionWithSocketServer } from '../../components/wss';
 import { useEffect } from 'react';
-import wss from '../../components/wss';
-import { store } from '../../store/store';
-import axios from 'axios'
 import { useRouter } from 'next/router';
-import { setIsRoomHost } from '../../store/actions';
 export default function index() {
-  const data = useContext(Context)
+  const {title,roomID,isHost,identity,settitle,setidentity,setisHost,setroomID} = useContext(Context)
   const [JoinRoomId,setJoinRoomId] = useState()
-  const {title,settitle,setidentity,identity,setisHost,isHost,setroomID,roomID,setconnectedUsers,connectedUsers} = data
   const router = useRouter()
   useEffect(()=>{
     setroomID(uuidv4())

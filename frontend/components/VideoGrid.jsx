@@ -29,15 +29,14 @@ export default function VideoGrid({ localStream }) {
         };
 
 
-        const AllVideos = document.querySelectorAll('video')
-        console.log(AllVideos.length)
+        
 
     }, [])
 
-    console.log(number)
+    
 
     return (
-        <div id="VideoGrid" className={` w-full rounded-md my-auto items-center  grid gap-4`}>
+        <div id="VideoGrid" className={` w-full rounded-md my-auto items-center abs  grid gap-4`}>
             <video id="my_video"></video>
             <style jsx>
                 {`

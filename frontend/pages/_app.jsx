@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Navbar from '../components/Navbar'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import 'regenerator-runtime/runtime'
 import { store } from '../store/store';
 import { Provider } from 'react-redux';
 import { useEffect } from 'react'

@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from .models import *
+from .models import User,Room
 from .helpers import *
-from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -27,3 +26,8 @@ class VerifyOTPSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("email_is_verified","otp","email")
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = "__all__"

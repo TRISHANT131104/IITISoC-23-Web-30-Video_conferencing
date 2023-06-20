@@ -9,7 +9,7 @@ export const ContextProvider = ({ children }) => {
     
     console.log(typeof window!=="undefined" && localStorage.getItem('participants_length'))
     const [number,setnumber] = useState(typeof window!=="undefined" && localStorage.getItem('participants_length')?localStorage.getItem('participants_length'):1)
-    const [title,settitle] = useState(null)
+    const [title,settitle] = useState(typeof window!=="undefined" && localStorage.getItem('title')?localStorage.getItem('title'):null) 
     const [identity,setidentity] = useState(typeof window!=="undefined" && localStorage.getItem('identity')?localStorage.getItem('identity'):null)
     const [isHost,setisHost] = useState(false)
     const [overlay,setoverlay] = useState(true)

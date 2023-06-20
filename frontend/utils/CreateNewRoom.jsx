@@ -1,19 +1,18 @@
-import { setIdentity, setIsRoomHost } from "../store/actions"
 import { store } from "../store/store"
+import { setIdentity,setIsRoomHost, setRoomId } from "../store/actions"
 
-export const createNewRoom = (socket,identity, roomID, isRoomHost) => {
-    //emit an event to server to create a new room
-
+export const createNewRoom = (socket,auth, roomID, isRoomHost,title) => {
     const data = {
-        identity,
+        username:auth.username,
         roomID,
-        isRoomHost
+        isRoomHost,
+        title
     }
-    store.dispatch(setIdentity(identity))
+    store.dispatch(setRoomId(roomID))
+    store.dispatch(setIdentity(auth.username))
     store.dispatch(setIsRoomHost(isRoomHost))
-    socket.current.emit('create-new-room', data)
-    // ws.send(JSON.stringify({
-    //     "type":"create-new-room",
-    //     "data":data
-    // }))
+    socket.current.send(JSON.stringify({
+        "type":"create-new-room",
+        "data":data
+    }))
 }

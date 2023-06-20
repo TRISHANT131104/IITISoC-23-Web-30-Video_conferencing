@@ -13,6 +13,8 @@ from .models import User
 from rest_framework.views import APIView
 from rest_framework.filters import SearchFilter
 from .emails import send_otp_via_email
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 # Create your views here.
 
 
@@ -95,6 +97,29 @@ class Login(APIView):  # making a class based view called Login Using APIView
 
                 else:  # if the email sent by the frontend is not equal to the email of the user stored in that database then send a error to the frontend
                     return Response({'errors': 'email not matched'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            print(e)
+            return Response({'errors': 'Some Error Occured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class GetRoomDetails(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self,request):
+        try:
+            user = self.request.user
+            room_id = request.data['roomID']
+            old_room = Room.objects.filter(room_id=room_id).filter(created_by = user).first()
+            room = Room.objects.filter(room_id = room_id).first()
+            if old_room is not None:
+                serializer = RoomSerializer(old_room)
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                if room is None:
+                    return Response({'errors': 'Room Not Found'}, status=status.HTTP_404_NOT_FOUND)
+                else:
+                    serializer = RoomSerializer(room)
+                    return Response(serializer.data,status=status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response({'errors': 'Some Error Occured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
