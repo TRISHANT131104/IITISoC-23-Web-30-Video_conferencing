@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import ParticipantsList from "./ParticipantsList";
 import DownloadMessage from "./DownloadMessage";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+
 import { getLocalPreviewAndInitRoomConnection } from '../utils/GetLocalPreviewAndInitRoomConnection'
 import { sendMessage } from "../utils/MessageUtils";
 import { sendFile, selectFile } from "../utils/ShareFileUtils";
@@ -25,7 +26,7 @@ import Board from "./Board";
 import SpeechToText from "../utils/SpeechToText";
 import { AiFillFileText, AiOutlineFileText } from 'react-icons/ai';
 import axios from "axios";
-import { w3cwebsocket as W3CWebSocket } from "websocket"
+
 
 function LaptopRoom(props) {
 	console.log('props', props.messages)
@@ -44,7 +45,7 @@ function LaptopRoom(props) {
 	let peers = useRef({})
 	let peersRef = useRef([])
 	let localStream = useRef()
-	let socket = useRef(new W3CWebSocket('wss://www.pradeeps-video-conferencing.store/ws/chat/'))
+	let socket = useRef()
 	const Attachmentref = useRef(null);
 	const FileNameRef = useRef();
 	const [GotFile, setGotFile] = useState(false);

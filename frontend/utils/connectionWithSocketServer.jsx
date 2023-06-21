@@ -1,6 +1,7 @@
 import { store } from "../store/store"
 import { setSocketId, setRoomId, setParticipants } from "../store/actions"
 import { prepareNewPeerConnection } from "./prepareNewPeerConnection"
+import { io } from 'socket.io-client'
 import { w3cwebsocket as W3CWebSocket } from "websocket"
 
 const handleDisconnectedUser = (peers, socketId) => {
@@ -40,6 +41,7 @@ const handleSignallingData = (peers, data) => {
 
 
 export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
+    socket.current = new W3CWebSocket('wss://www.pradeeps-video-conferencing.store/ws/chat/')
     console.log(socket.current)
     socket.current.onopen = () => {
         console.log('web socket connection opened')
