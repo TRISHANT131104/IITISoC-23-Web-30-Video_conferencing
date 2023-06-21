@@ -3,50 +3,10 @@ import { handleReceiveData } from './ShareFileUtils'
 import { appendNewMessage } from './MessageUtils'
 import { UpdateBoardCanvas } from './BoardUtils'
 import { updateTranscript } from './SpokenData'
+import { getTurnIceServers } from './TurnServers'
 const getConfiguration = () => {
     return {
-        iceServers: [
-            { url: 'stun:stun.pradeeps-video-conferencing.store' },
-            { url: 'stun:stun.l.google.com:19302' },
-            { url: 'stun:stun1.l.google.com:19302' },
-            { url: 'stun:stun2.l.google.com:19302' },
-            { url: 'stun:stun3.l.google.com:19302' },
-            {
-                url: 'turn:numb.viagenie.ca',
-                credential: 'muazkh',
-                username: 'webrtc@live.com'
-            },
-            {
-                url: 'turn:192.158.29.39:3478?transport=udp',
-                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                username: '28224511:1379330808'
-            },
-            {
-                url: 'turn:192.158.29.39:3478?transport=tcp',
-                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                username: '28224511:1379330808'
-            },
-            {
-                url: 'turn:turn.bistri.com:80',
-                credential: 'homeo',
-                username: 'homeo'
-            },
-            {
-                url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-                credential: 'webrtc',
-                username: 'webrtc'
-            },
-            {
-                url: 'turn:relay.backups.cz',
-                credential: 'webrtc',
-                username: 'webrtc'
-            },
-            {
-                url: 'turn:relay.backups.cz?transport=tcp',
-                credential: 'webrtc',
-                username: 'webrtc'
-            },
-        ]
+        iceServers:getTurnIceServers()
     }
 }
 
@@ -121,8 +81,13 @@ const SignalPeerData = (socket, data) => {
 }
 
 
-export const prepareNewPeerConnection = (socket, peers, connUserSocketId, isInitiator, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
-
+export const prepareNewPeerConnection = (socket, peers, connUserSocketId, isInitiator, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript,IceServers) => {
+    console.log('ice servers in peer new conn',IceServers.current)
+    const getConfiguration = () => {
+        return {
+            iceServers:IceServers.current
+        }
+    }
     const configuration = getConfiguration()
 
     const streamToUse = ScreenSharingStream.current ? ScreenSharingStream.current : localStream.current;

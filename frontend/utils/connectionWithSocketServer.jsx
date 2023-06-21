@@ -40,7 +40,7 @@ const handleSignallingData = (peers, data) => {
 
 
 
-export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
+export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript,IceServers) => {
     socket.current = new W3CWebSocket('wss://www.pradeeps-video-conferencing.store/ws/chat/')
     console.log(socket.current)
     socket.current.onopen = () => {
@@ -61,7 +61,7 @@ export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, l
         else if (type == "conn-prepare") {
             alert('conn-prepare')
             const { connUserSocketId } = data
-            prepareNewPeerConnection(socket, peers, connUserSocketId, false, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript)
+            prepareNewPeerConnection(socket, peers, connUserSocketId, false, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript,IceServers)
             socket.current.send(JSON.stringify({
                 "type": 'conn-init',
                 data: {
@@ -75,7 +75,7 @@ export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, l
         }
         else if (type === "conn-init") {
             const { connUserSocketId } = data
-            prepareNewPeerConnection(socket, peers, connUserSocketId, true, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript)
+            prepareNewPeerConnection(socket, peers, connUserSocketId, true, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript,IceServers)
         }
 
     }

@@ -133,5 +133,5 @@ class TurnServers(APIView):
         AuthToken = "2ae496b97e92993c62610aa48756efb1"
         client = Client(AccountSID, AuthToken)
         token = client.tokens.create()
-        print(token)
-        return Response(token.username)
+        ice_servers = token.ice_servers  # Retrieve the iceServers from the token
+        return Response(ice_servers)

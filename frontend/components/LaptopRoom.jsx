@@ -52,6 +52,7 @@ function LaptopRoom(props) {
 	const FileSentBy = useRef()
 	const setProgress = useRef()
 	const isDrawing = useRef(false)
+	const IceServers = useRef(null)
 	const {
         transcript,
         listening,
@@ -79,8 +80,8 @@ function LaptopRoom(props) {
 	useEffect(() => {
 		
 		worker.current = new Worker('/worker.js')
-		connectionWithSocketServer(socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing,Transcript)
-		getLocalPreviewAndInitRoomConnection(socket, localStream, isHost,auth, roomID, setoverlay,title)
+		connectionWithSocketServer(socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing,Transcript,IceServers)
+		getLocalPreviewAndInitRoomConnection(socket, localStream, isHost,auth, roomID, setoverlay,title,IceServers)
 
 		const handleClickOutsideAttachmentBtn = (e) => {
 			if (Attachmentref.current && !Attachmentref.current.contains(e.target)) {
