@@ -19,7 +19,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 import { getLocalPreviewAndInitRoomConnection } from '../utils/GetLocalPreviewAndInitRoomConnection'
 import { sendMessage } from "../utils/MessageUtils";
-import { sendFile, download, selectFile } from "../utils/ShareFileUtils";
+import { sendFile, selectFile } from "../utils/ShareFileUtils";
 import { LeaveRoom } from "../utils/LeaveRoom";
 import { connectionWithSocketServer } from "../utils/connectionWithSocketServer";
 import { handleScreenShare } from "../utils/ScreenShareUtils";

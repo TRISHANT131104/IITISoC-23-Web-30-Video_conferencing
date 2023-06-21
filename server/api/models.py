@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
 from .helpers import getdate
+from .manager import UserManager
 # Create your models here.
 class User(AbstractUser):
     email_is_verified = models.BooleanField(null=True,default=False,blank=True)

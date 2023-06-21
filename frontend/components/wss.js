@@ -4,10 +4,9 @@ import * as webRTCHandler from './webRTCHandler'
 import Cookies from 'js-cookie'
 import {store} from '../store/store'
 const SERVER = "http://localhost:4000"
-const ws = new WebSocket("ws://127.0.0.1:8000/ws/chat/")
 let socket = io(SERVER);
 export default socket
-export const connectionWithSocketServer = (ContextData) =>{
+const connectionWithSocketServer = (ContextData) =>{
     console.log('ContextData',ContextData)
     // ws.onopen = () =>{
     //     alert('websocket connected')

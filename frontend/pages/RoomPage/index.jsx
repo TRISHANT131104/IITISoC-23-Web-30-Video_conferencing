@@ -37,7 +37,7 @@ export default function DjangoRoom() {
 	const {auth,roomID} = useContext(Context)
 	
 	
-	const ws = new WebSocket('ws://127.0.0.1:8000/ws/chat/' + roomID + "/")
+	const ws = new WebSocket('ws://43.204.45.215/ws/chat/')
 	useEffect(()=>{
 		ws.onopen = () =>{
 			alert('Django websockets connected in client side')
