@@ -6,7 +6,7 @@ import { updateTranscript } from './SpokenData'
 const getConfiguration = () => {
     return {
         iceServers: [
-            { url: 'stun:stun.gmx.net:3478' },
+            { url: 'stun:stun.pradeeps-video-conferencing.store' },
             { url: 'stun:stun.l.google.com:19302' },
             { url: 'stun:stun1.l.google.com:19302' },
             { url: 'stun:stun2.l.google.com:19302' },

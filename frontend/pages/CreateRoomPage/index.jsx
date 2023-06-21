@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import client from 'twilio'
+
 export default function index() {
   const { title, roomID, isHost, identity, settitle, setidentity, setisHost, setroomID } = useContext(Context)
   const [JoinRoomId, setJoinRoomId] = useState()
