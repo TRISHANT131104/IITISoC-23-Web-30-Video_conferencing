@@ -4,6 +4,7 @@ import { setIsRoomHost } from "../store/actions"
 import { store } from "../store/store"
 export const JoinRoom = (socket,auth, roomID, isRoomHost) => {
     console.log(auth)
+    console.log('hello')
     axios.post('http://43.204.45.215//api/v1/GetRoomDetails/',{roomID:roomID},{
         headers:{
             Authorization:"Bearer " + auth.access.toString()
