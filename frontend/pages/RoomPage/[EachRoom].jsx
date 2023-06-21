@@ -17,9 +17,7 @@ const  EachRoom = () => {
         localStorage.setItem('roomID',router.query.EachRoom)
     })
 
-
     
-
     return (
         <div>
             <div>

@@ -6,38 +6,73 @@ import { updateTranscript } from './SpokenData'
 const getConfiguration = () => {
     return {
         iceServers: [
+            { url: 'stun:stun.gmx.net:3478' },
+            { url: 'stun:stun.l.google.com:19302' },
+            { url: 'stun:stun1.l.google.com:19302' },
+            { url: 'stun:stun2.l.google.com:19302' },
+            { url: 'stun:stun3.l.google.com:19302' },
             {
-                "urls": "stun:stun.l.google.com:19302"
+                url: 'turn:numb.viagenie.ca',
+                credential: 'muazkh',
+                username: 'webrtc@live.com'
             },
             {
-                "urls": "stun:stun1.l.google.19302"
-            }
+                url: 'turn:192.158.29.39:3478?transport=udp',
+                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                username: '28224511:1379330808'
+            },
+            {
+                url: 'turn:192.158.29.39:3478?transport=tcp',
+                credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                username: '28224511:1379330808'
+            },
+            {
+                url: 'turn:turn.bistri.com:80',
+                credential: 'homeo',
+                username: 'homeo'
+            },
+            {
+                url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                credential: 'webrtc',
+                username: 'webrtc'
+            },
+            {
+                url: 'turn:relay.backups.cz',
+                credential: 'webrtc',
+                username: 'webrtc'
+            },
+            {
+                url: 'turn:relay.backups.cz?transport=tcp',
+                credential: 'webrtc',
+                username: 'webrtc'
+            },
         ]
     }
 }
 
 
-const handleOnPeerData = (worker,setGotFile,FileNameRef,peerdata,FileSentBy,setProgress,isDrawing,Transcript) => {
+
+const handleOnPeerData = (worker, setGotFile, FileNameRef, peerdata, FileSentBy, setProgress, isDrawing, Transcript) => {
     if (peerdata.toString().includes('file')) {
-        
-        handleReceiveData(worker, setGotFile, FileNameRef, peerdata,FileSentBy,setProgress) 
+
+        handleReceiveData(worker, setGotFile, FileNameRef, peerdata, FileSentBy, setProgress)
     }
     else if (peerdata.toString().includes('message')) {
         const data = JSON.parse(peerdata);
         appendNewMessage(data.messageData)
     }
-    else if(peerdata.toString().includes('image')){
+    else if (peerdata.toString().includes('image')) {
         const data = JSON.parse(peerdata);
         console.log(data)
         const base64 = data.base64;
-        UpdateBoardCanvas(base64,isDrawing)
+        UpdateBoardCanvas(base64, isDrawing)
     }
-    else if(peerdata.toString().includes('SpokenData')){
+    else if (peerdata.toString().includes('SpokenData')) {
         alert('spoken data')
         const data = JSON.parse(peerdata);
         console.log(data)
         const transcript = data.transcript;
-        updateTranscript(transcript,Transcript)
+        updateTranscript(transcript, Transcript)
     }
 }
 
@@ -81,13 +116,13 @@ const addStream = (stream, connUserSocketId) => {
 
 
 
-const SignalPeerData = (socket,data) => {
-    socket.current.send(JSON.stringify({type:'conn-signal', data:data}))
+const SignalPeerData = (socket, data) => {
+    socket.current.send(JSON.stringify({ type: 'conn-signal', data: data }))
 }
 
 
-export const prepareNewPeerConnection = (socket,peers,connUserSocketId,isInitiator,ScreenSharingStream,localStream,worker,setGotFile,FileNameRef,FileSentBy,setProgress,isDrawing,Transcript) => {
-   
+export const prepareNewPeerConnection = (socket, peers, connUserSocketId, isInitiator, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
+
     const configuration = getConfiguration()
 
     const streamToUse = ScreenSharingStream.current ? ScreenSharingStream.current : localStream.current;
@@ -96,28 +131,28 @@ export const prepareNewPeerConnection = (socket,peers,connUserSocketId,isInitiat
         config: configuration,
         stream: streamToUse,
     })
-    
+
     peers.current[connUserSocketId] = peer
 
 
     peers.current[connUserSocketId].on('signal', (data) => {
-       
+
         //here we have the sdp offer,sdp answer and also the  information about the ice candidates
         const SignalData = {
             signal: data,
             connUserSocketId: connUserSocketId
         }
-        SignalPeerData(socket,SignalData)
+        SignalPeerData(socket, SignalData)
     })
 
 
     peers.current[connUserSocketId].on('stream', (stream) => {
-       
+
         addStream(stream, connUserSocketId);
     })
     peers.current[connUserSocketId].on('data', (peerdata) => {
-        
-        handleOnPeerData(worker,setGotFile,FileNameRef,peerdata,FileSentBy,setProgress,isDrawing,Transcript)
+
+        handleOnPeerData(worker, setGotFile, FileNameRef, peerdata, FileSentBy, setProgress, isDrawing, Transcript)
 
     });
     peers.current[connUserSocketId].on('error', err => {

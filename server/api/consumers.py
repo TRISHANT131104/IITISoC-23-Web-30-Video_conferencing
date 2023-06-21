@@ -76,42 +76,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             await database_sync_to_async(room.save)()
             await self.send_json_to_room(room_id,response)
 
-    async def join_room_handler(self, data):
-        identity = data['username']
-        room_id = data['roomID']
-        is_room_host = data['isRoomHost']
-        socket_id = self.channel_name
-
-        new_user = {
-            'identity': identity,
-            'id': f'user-{uuid4()}',
-            'socketId': socket_id,
-            'roomID': room_id,
-            'isRoomHost': is_room_host
-        }
-
-        room = next((r for r in rooms if r['id'] == room_id), None)
-        if room:
-            room['connectedUsers'].append(new_user)
-
-            # Join the room
-            await self.join_room(room_id)
-
-            # Send "conn-prepare" event to other users in the room
-            for user in room['connectedUsers']:
-                if user['socketId'] != socket_id:
-                    data = {
-                        'connUserSocketId': socket_id,
-                        'connUserIdentity': new_user['identity'],
-                        'connUserId': new_user['id']
-                    }
-                    await self.send_conn_prepare(user['socketId'], data)
-
-            # Add the user to the connectedUsers array
-            connectedUsers.append(new_user)
-
-            # Emit "room-update" event to all users in the room
-            await self.room_update(room_id)
+    
 
     async def join_user_to_room(self, data):
        

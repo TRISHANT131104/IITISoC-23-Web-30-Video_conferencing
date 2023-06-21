@@ -15,6 +15,8 @@ from rest_framework.filters import SearchFilter
 from .emails import send_otp_via_email
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from twilio.rest import Client
+import json
 # Create your views here.
 
 
@@ -123,3 +125,13 @@ class GetRoomDetails(APIView):
         except Exception as e:
             print(e)
             return Response({'errors': 'Some Error Occured'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+class TurnServers(APIView):
+    def get(self,request):
+        AccountSID = "ACceb1c26f5c6fc371a6fa793dbcb74814"
+        AuthToken = "2ae496b97e92993c62610aa48756efb1"
+        client = Client(AccountSID, AuthToken)
+        token = client.tokens.create()
+        print(token)
+        return Response(token.username)

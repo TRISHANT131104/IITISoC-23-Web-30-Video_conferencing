@@ -9,10 +9,14 @@ app.use(bodyParser.json()); // Parse JSON requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'))
 app.use(cors())
-const config = new Configuration({
-    apiKey: "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"
+const accountSid = 'AC09019a6abb7df7a930d28f477076e602';
+const authToken = '18137cf86c37d776986910eba2670e90';
+const client = require('twilio')(accountSid, authToken);
+app.get('/', (req, res) => {
+
+
+    client.tokens.create().then(token => console.log(token.username));
 })
-const openai = new OpenAIApi(config)
 
 var server = app.listen(4000, () => {
     console.log('listening to port 4000')
@@ -20,7 +24,7 @@ var server = app.listen(4000, () => {
 const io = new Server(server, {
     cors: {
         origin: '*',
-        methods: ['GET','POST']
+        methods: ['GET', 'POST']
     }
 });
 

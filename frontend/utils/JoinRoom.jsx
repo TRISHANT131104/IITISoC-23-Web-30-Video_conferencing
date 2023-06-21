@@ -15,7 +15,7 @@ export const JoinRoom = (socket,auth, roomID, isRoomHost) => {
         store.dispatch(setRoomId(response.data.room_id))
     })
     const data = {
-        roomID,
+        roomID:roomID,
         username:auth.username,
     }
     socket.current.send(JSON.stringify({
