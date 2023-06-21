@@ -7,24 +7,24 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { LuScreenShareOff, LuScreenShare } from 'react-icons/lu'
 import { IoExit } from 'react-icons/io5'
 import { GrAttachment } from 'react-icons/gr'
-import Context from "../context/Context";
+import Context from "../context/Context.jsx";
 import { useRouter } from "next/router";
-import VideoGrid from "./VideoGrid";
-import LocalScreenSharePreview from "./LocalScreenSharePreview";
-import EachMessage from "./EachMessage";
+import VideoGrid from "./VideoGrid.jsx";
+import LocalScreenSharePreview from "./LocalScreenSharePreview.jsx";
+import EachMessage from "./EachMessage.jsx";
 import { connect } from 'react-redux';
-import ParticipantsList from "./ParticipantsList";
-import DownloadMessage from "./DownloadMessage";
+import ParticipantsList from "./ParticipantsList.jsx";
+import DownloadMessage from "./DownloadMessage.jsx";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
-import { getLocalPreviewAndInitRoomConnection } from '../utils/GetLocalPreviewAndInitRoomConnection'
-import { sendMessage } from "../utils/MessageUtils";
-import { sendFile, selectFile } from "../utils/ShareFileUtils";
-import { LeaveRoom } from "../utils/LeaveRoom";
-import { connectionWithSocketServer } from "../utils/connectionWithSocketServer";
-import { handleScreenShare } from "../utils/ScreenShareUtils";
-import Board from "./Board";
-import SpeechToText from "../utils/SpeechToText";
+import { getLocalPreviewAndInitRoomConnection } from '../utils/GetLocalPreviewAndInitRoomConnection.jsx'
+import { sendMessage } from "../utils/MessageUtils.jsx";
+import { sendFile, selectFile } from "../utils/ShareFileUtils.jsx";
+import { LeaveRoom } from "../utils/LeaveRoom.jsx";
+import { connectionWithSocketServer } from "../utils/connectionWithSocketServer.jsx";
+import { handleScreenShare } from "../utils/ScreenShareUtils.jsx";
+import Board from "./Board.jsx";
+import SpeechToText from "../utils/SpeechToText.jsx";
 import { AiFillFileText, AiOutlineFileText } from 'react-icons/ai';
 import axios from "axios";
 
