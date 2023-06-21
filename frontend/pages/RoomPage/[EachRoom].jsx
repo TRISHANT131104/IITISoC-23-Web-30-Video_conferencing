@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import LaptopRoom from '../../components/LaptopRoom'
 import MobileRoom from '../../components/MobileRoom'
 import Context from '../../context/Context'
 
-export default function EachRoom() {
+const  EachRoom = () => {
     const { auth } = useContext(Context);
     const router = useRouter();
     useEffect(() => {
@@ -28,3 +29,6 @@ export default function EachRoom() {
         </div>
     )
 }
+
+
+export default EachRoom
