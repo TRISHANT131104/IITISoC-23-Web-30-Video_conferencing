@@ -1,6 +1,6 @@
 import { store } from "../store/store"
 import { setSocketId, setRoomId, setParticipants } from "../store/actions"
-import { prepareNewPeerConnection } from "./prepareNewPeerConnection"
+import { prepareNewPeerConnection } from "./prepareNewPeerConnection.jsx"
 import { io } from 'socket.io-client'
 import {W3CWebSocket} from "websocket"
 

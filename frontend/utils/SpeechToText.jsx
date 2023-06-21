@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AiFillFileText, AiOutlineFileText } from 'react-icons/ai';
 import {MdRecordVoiceOver } from 'react-icons/md'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { SendYourSpokenDataToOtherPeers } from './SpokenData';
+import { SendYourSpokenDataToOtherPeers } from './SpokenData.jsx';
 export default function SpeechToText(transcript,peers,browserSupportsSpeechRecognition) {
     const [speechToText, setSpeechToText] = useState(false);
     

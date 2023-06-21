@@ -1,8 +1,8 @@
 import Peer from 'simple-peer'
-import { handleReceiveData } from './ShareFileUtils'
-import { appendNewMessage } from './MessageUtils'
-import { UpdateBoardCanvas } from './BoardUtils'
-import { updateTranscript } from './SpokenData'
+import { handleReceiveData } from './ShareFileUtils.jsx'
+import { appendNewMessage } from './MessageUtils.jsx'
+import { UpdateBoardCanvas } from './BoardUtils.jsx'
+import { updateTranscript } from './SpokenData.jsx'
 const getConfiguration = () => {
     return {
         iceServers: [

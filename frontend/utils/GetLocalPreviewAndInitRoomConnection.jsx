@@ -1,5 +1,5 @@
-import { createNewRoom } from "./createNewRoom"
-import { JoinRoom } from "./JoinRoom"
+import { createNewRoom } from "./createNewRoom.jsx"
+import { JoinRoom } from "./JoinRoom.jsx"
 
 const defaultControls = {
     audio: true,
