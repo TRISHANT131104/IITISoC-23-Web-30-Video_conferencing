@@ -41,7 +41,7 @@ const handleSignallingData = (peers, data) => {
 
 
 export const connectionWithSocketServer = (socket, peers, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
-    socket.current = new WebSocket('ws://43.204.45.215/ws/chat/')
+    socket.current = new WebSocket('wss://www.pradeeps-video-conferencing.store/ws/chat/')
     console.log(socket.current)
     socket.current.onopen = () => {
         console.log('web socket connection opened')

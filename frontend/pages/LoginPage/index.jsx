@@ -97,7 +97,7 @@ export default function LoginPage() {
 
 
 const LoginUser = (user) => {
-    return axios.post('http://43.204.45.215/api/v1/Login/', user, {
+    return axios.post('https://www.pradeeps-video-conferencing.store/api/v1/Login/', user, {
         withCredentials: true,
     })
 }
