@@ -3,10 +3,16 @@ import { handleReceiveData } from './ShareFileUtils'
 import { appendNewMessage } from './MessageUtils'
 import { UpdateBoardCanvas } from './BoardUtils'
 import { updateTranscript } from './SpokenData'
-import { getTurnIceServers } from './TurnServers'
 const getConfiguration = () => {
     return {
-        iceServers:getTurnIceServers()
+        iceServers: [
+            { url:'stun:stun.www.pradeeps-video-conferencing.store'},
+            {
+                url: 'turn:turn.www.pradeeps-video-conferencing.store',
+                credential: '1234',
+                username: 'pradeepkumar'
+            },
+        ]
     }
 }
 
@@ -81,13 +87,8 @@ const SignalPeerData = (socket, data) => {
 }
 
 
-export const prepareNewPeerConnection = (socket, peers, connUserSocketId, isInitiator, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript,IceServers) => {
-    console.log('ice servers in peer new conn',IceServers.current)
-    const getConfiguration = () => {
-        return {
-            iceServers:IceServers.current
-        }
-    }
+export const prepareNewPeerConnection = (socket, peers, connUserSocketId, isInitiator, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef, FileSentBy, setProgress, isDrawing, Transcript) => {
+
     const configuration = getConfiguration()
 
     const streamToUse = ScreenSharingStream.current ? ScreenSharingStream.current : localStream.current;

@@ -9,9 +9,9 @@ const defaultControls = {
 
 
 export const getLocalPreviewAndInitRoomConnection = (socket,localStream,isRoomHost, auth, roomID, setoverlay,title,IceServers) => {
-    fetchTurnCredentials().then((response)=>{
-        IceServers.current = response
-    })
+    // fetchTurnCredentials().then((response)=>{
+    //     IceServers.current = response
+    // })
     navigator.mediaDevices.getUserMedia(defaultControls).then((stream) => {
         console.log('getLocalPreviewAndInitRoomConnection Called')
         localStream.current = stream;
