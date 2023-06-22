@@ -1,0 +1,41 @@
+export const connectionWithSocketServer = (socket,peers,ScreenSharingStream,localStream,worker,setGotFile,FileNameRef,FileSentBy,setProgress,isDrawing,Transcript) => {
+    socket.current = io('http://localhost:4000')
+
+
+    socket.current.on('connect', () => {
+        store.dispatch(setSocketId(socket.current.id))
+    })
+    socket.current.on('room-id', (data) => {
+        console.log(data)
+        const { roomID } = data
+        store.dispatch(setRoomId(roomID))
+
+    })
+
+    socket.current.on('room-update', (data) => {
+        const { connectedUsers } = data;
+        console.log('room-update', connectedUsers)
+        localStorage.setItem('participants_length', connectedUsers.length)
+        store.dispatch(setParticipants(connectedUsers))
+    })
+
+    socket.current.on('conn-prepare', (data) => {
+        const { connUserSocketId } = data
+        prepareNewPeerConnection(socket, peers, connUserSocketId, false, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef,FileSentBy,setProgress,isDrawing,Transcript)
+        socket.current.emit('conn-init', {connUserSocketId: connUserSocketId})
+    })
+    socket.current.on('conn-signal', (data) => {
+        const { signal, connUserSocketId } = data
+        handleSignallingData(peers,data)
+    })
+
+    socket.current.on('conn-init', (data) => {
+        const { connUserSocketId } = data
+        prepareNewPeerConnection(socket, peers, connUserSocketId, true, ScreenSharingStream, localStream, worker, setGotFile, FileNameRef,FileSentBy,setProgress,isDrawing,Transcript)
+
+    })
+    socket.current.on('user-disconnected', ({ socketId }) => {
+        handleDisconnectedUser(peers,socketId)
+    })
+
+}
